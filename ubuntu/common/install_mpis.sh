@@ -46,10 +46,10 @@ MVAPICH2_FOLDER=$(basename $MVAPICH2_DOWNLOAD_URL .tar.gz)
 $COMMON_DIR/download_and_verify.sh $MVAPICH2_DOWNLOAD_URL $MVAPICH2_SHA256
 tar -xvf ${TARBALL}
 cd ${MVAPICH2_FOLDER}
-# Error exclusive to Ubuntu 22.04
+# Error exclusive to Ubuntu 22.04 & 24.04
 # configure: error: The Fortran compiler gfortran will not compile files that call
 # the same routine with arguments of different types.
-./configure $(if [[ ${DISTRIBUTION} == "ubuntu22.04" ]]; then echo "FFLAGS=-fallow-argument-mismatch"; fi) --prefix=${INSTALL_PREFIX}/mvapich2-${MVAPICH2_VERSION} --enable-g=none --enable-fast=yes && make -j$(nproc) && make install
+./configure $(if [[ ${DISTRIBUTION} == "ubuntu22.04" ]] || [[ ${DISTRIBUTION} == "ubuntu24.04" ]]; then echo "FFLAGS=-fallow-argument-mismatch"; fi) --prefix=${INSTALL_PREFIX}/mvapich2-${MVAPICH2_VERSION} --enable-g=none --enable-fast=yes && make -j$(nproc) && make install
 cd ..
 $COMMON_DIR/write_component_version.sh "MVAPICH2" ${MVAPICH2_VERSION}
 

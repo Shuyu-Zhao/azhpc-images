@@ -7,7 +7,9 @@ pmix_metadata=$(get_component_config "pmix")
 PMIX_VERSION=$(jq -r '.version' <<< $pmix_metadata)
 UBUNTU_VERSION=$(cat /etc/os-release | grep VERSION_ID | cut -d= -f2 | cut -d\" -f2)
 
-if [ $UBUNTU_VERSION == 22.04 ]; then
+if [ $UBUNTU_VERSION == 24.04 ]; then
+    REPO=slurm-ubuntu-noble
+elif [ $UBUNTU_VERSION == 22.04 ]; then
     REPO=slurm-ubuntu-jammy
 elif [ $UBUNTU_VERSION == 20.04 ]; then
     REPO=slurm-ubuntu-focal

@@ -9,9 +9,6 @@ moneo_metadata=$(get_component_config "moneo")
 MONEO_VERSION=$(jq -r '.version' <<< $moneo_metadata)
 MONEO_SHA256=$(jq -r '.sha256' <<< $moneo_metadata)
 
-# Dependencies 
-python3 -m pip install --upgrade pip
-
 MONITOR_DIR=/opt/azurehpc/tools
 TARBALL="v${MONEO_VERSION}.tar.gz"
 MONEO_DOWNLOAD_URL=https://github.com/Azure/Moneo/archive/refs/tags/${TARBALL}
