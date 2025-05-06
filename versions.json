@@ -57,9 +57,9 @@
             "url": "https://content.mellanox.com/hpc/hpc-x/v2.18/hpcx-v2.18-gcc-mlnx_ofed-redhat8-cuda12-x86_64.tbz"
         },
         "almalinux8.10": {
-            "version": "2.21.2",
-            "sha256": "05d45935ce4862beb10ffadf4fc0de761ed80d7539b74f445ac8007bded4ed2c",
-            "url": "https://content.mellanox.com/hpc/hpc-x/v2.21.2/hpcx-v2.21.2-gcc-doca_ofed-redhat8-cuda12-x86_64.tbz"
+            "version": "2.18",
+            "sha256": "45276ff7bd676cc668d1cc6a1fe926d5e157646aaf06201415e0aadb048be16d",
+            "url": "https://content.mellanox.com/hpc/hpc-x/v2.18/hpcx-v2.18-gcc-mlnx_ofed-redhat8-cuda12-x86_64.tbz"
         },
         "rhel8.10": {
             "version": "2.18",
@@ -81,6 +81,11 @@
         }
     },
     "impi": {
+        "almalinux8.10": {
+            "version": "2021.13.1",
+            "sha256": "be61c4792d25bd4a1b5f7b808c06a9f4676f1b247d7605ac6d3c6cffdb8f19b7",
+            "url": "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/364c798c-4cad-4c01-82b5-e1edd1b476af/l_mpi_oneapi_p_2021.13.1.769_offline.sh"
+        },
         "common": {
             "version": "2021.15.0",
             "sha256": "d4ad297174ce3837444468645e13cfe78f11d9bf2ad9ade2057b2668cccd9385",
