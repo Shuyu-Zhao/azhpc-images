@@ -20,10 +20,9 @@
             "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v2.8.0/host/doca-host_2.8.0-204000-24.07-ubuntu2004_amd64.deb"
         },
         "ubuntu22.04": {
-            "version": "2.10.0",
-            "sha256": "c9758f9029393b749908f0485827004dafa8cc0e24313f1f2bdae2406050ddfd",
-            "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v2.10.0/host/doca-host_2.10.0-093000-25.01-ubuntu2204_amd64.deb"
-        },
+            "version": "2.8.0",
+            "sha256": "289a3e00f676032b52afb1aab5f19d2a672bcca782daf9d30ade0b59975af582",
+            "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v2.8.0/host/doca-host_2.8.0-204000-24.07-ubuntu2204_amd64.deb"        },
         "almalinux8.7": {
             "version": "2.8.0",
             "sha256": "a9f1ebd173bd8df08ec8a8e2448f3d3f757460cb26690fb62ecca59f3f271bb5",
