@@ -24,7 +24,7 @@ source ./set_properties.sh
 $ALMA_COMMON_DIR/install_cmake.sh
 
 # install Lustre client
-$ALMA_COMMON_DIR/install_lustre_client.sh "8"
+$ALMA_COMMON_DIR/install_lustre_client.sh "9"
 
 # install compilers
 ./install_gcc.sh
@@ -33,7 +33,7 @@ $ALMA_COMMON_DIR/install_lustre_client.sh "8"
 $ALMA_COMMON_DIR/install_doca.sh
 
 # install PMIX
-$ALMA_COMMON_DIR/install_pmix.sh "8"
+$ALMA_COMMON_DIR/install_pmix.sh "9"
 
 # install mpi libraries
 $ALMA_COMMON_DIR/install_mpis.sh
