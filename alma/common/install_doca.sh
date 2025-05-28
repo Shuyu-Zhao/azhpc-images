@@ -16,8 +16,9 @@ dnf clean all
 
 # Install DOCA extras for compatibility
 dnf install -y doca-extra
+VERSION_ID=$(. /etc/os-release;echo $VERSION_ID)
 KERNEL=( $(rpm -q kernel | sed 's/kernel\-//g' | sed 's/x86_64/noarch/'))
-wget --retry-connrefused --tries=3 --waitretry=5 https://repo.almalinux.org/almalinux/8.10/BaseOS/x86_64/os/Packages/kernel-abi-stablelists-${KERNEL}.rpm
+wget --retry-connrefused --tries=3 --waitretry=5 https://repo.almalinux.org/almalinux/$VERSION_ID/BaseOS/x86_64/os/Packages/kernel-abi-stablelists-${KERNEL}.rpm
 rpm -i kernel-abi-stablelists-${KERNEL}.rpm
 
 /opt/mellanox/doca/tools/doca-kernel-support

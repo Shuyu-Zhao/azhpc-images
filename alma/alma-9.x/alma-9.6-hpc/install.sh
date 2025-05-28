@@ -24,7 +24,7 @@ source ./set_properties.sh
 $ALMA_COMMON_DIR/install_cmake.sh
 
 # install Lustre client
-$ALMA_COMMON_DIR/install_lustre_client.sh "9"
+# $ALMA_COMMON_DIR/install_lustre_client.sh "9"
 
 # install compilers
 ./install_gcc.sh

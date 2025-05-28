@@ -15,4 +15,4 @@ yum install -y https://repo.almalinux.org/vault/8.7/BaseOS/x86_64/os/Packages/ke
     https://repo.almalinux.org/vault/8.7/BaseOS/x86_64/os/Packages/kernel-headers-${KERNEL}.rpm \
     https://repo.almalinux.org/vault/8.7/BaseOS/x86_64/os/Packages/kernel-modules-extra-${KERNEL}.rpm
 
-$ALMA_COMMON_DIR/install_utils.sh
+$ALMA_COMMON_DIR/install_utils.sh "8"

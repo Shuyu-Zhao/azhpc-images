@@ -21,4 +21,4 @@ sudo yum install -y wget
 # Install net-tools as AlmaLinux 8.10 does not have ifconfig by default
 sudo yum install -y net-tools
 
-$ALMA_COMMON_DIR/install_utils.sh
+$ALMA_COMMON_DIR/install_utils.sh "8"

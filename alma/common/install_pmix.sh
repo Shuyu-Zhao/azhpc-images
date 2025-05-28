@@ -18,7 +18,11 @@ if [ ! -e /etc/yum.repos.d/microsoft-prod.repo ];then
    rm packages-microsoft-prod.rpm
 fi
 
-dnf config-manager --set-enabled powertools
+if [[ $OS_MAJOR_VERSION == "9" ]]; then 
+   dnf config-manager --set-enabled crb
+elif  [[ $OS_MAJOR_VERSION == "8" ]]; then
+   dnf config-manager --set-enabled powertools
+fi
 yum -y install pmix-${PMIX_VERSION}.el${OS_MAJOR_VERSION} hwloc-devel libevent-devel munge-devel
 
 $COMMON_DIR/write_component_version.sh "PMIX" ${PMIX_VERSION}
