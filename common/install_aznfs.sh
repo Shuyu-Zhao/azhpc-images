@@ -11,5 +11,6 @@ AZNFS_DOWNLOAD_URL=https://github.com/Azure/AZNFS-mount/releases/download/${AZNF
 
 ${COMMON_DIR}/download_and_verify.sh $AZNFS_DOWNLOAD_URL $AZNFS_SHA256
 
+sed -i '147s/\(.*-o "\$distro" == "ol"\)/\1 -o "$distro" == "almalinux"/' aznfs_install.sh
 export AZNFS_NONINTERACTIVE_INSTALL=1
 bash aznfs_install.sh

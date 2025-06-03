@@ -26,9 +26,6 @@ $ALMA_COMMON_DIR/install_cmake.sh
 # install Lustre client
 # $ALMA_COMMON_DIR/install_lustre_client.sh "9"
 
-# install compilers
-./install_gcc.sh
-
 # install DOCA OFED
 $ALMA_COMMON_DIR/install_doca.sh
 

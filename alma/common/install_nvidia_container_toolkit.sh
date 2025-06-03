@@ -7,7 +7,7 @@ set -ex
 curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo | \
   sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
 
-yum-config-manager --enable nvidia-container-toolkit-experimental
+dnf config-manager --enable nvidia-container-toolkit-experimental
 
 yum clean expire-cache
 yum install -y nvidia-container-toolkit

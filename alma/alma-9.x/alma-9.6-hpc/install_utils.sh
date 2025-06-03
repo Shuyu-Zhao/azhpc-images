@@ -11,7 +11,7 @@ yum repolist
 
 # Install Kernel dependencies
 KERNEL=$(uname -r)
-yum install -y https://repo.almalinux.org/almalinux/9.6/AppStream/x86_64/os/Packages/kernel-devel-matched-${KERNEL}.rpm \
+dnf install -y https://repo.almalinux.org/almalinux/9.6/AppStream/x86_64/os/Packages/kernel-devel-matched-${KERNEL}.rpm \
     https://repo.almalinux.org/almalinux/9.6/AppStream/x86_64/os/Packages/kernel-devel-${KERNEL}.rpm \
     https://repo.almalinux.org/almalinux/9.6/AppStream/x86_64/os/Packages/kernel-headers-${KERNEL}.rpm \
     https://repo.almalinux.org/almalinux/9.6/BaseOS/x86_64/os/Packages/kernel-modules-extra-${KERNEL}.rpm
