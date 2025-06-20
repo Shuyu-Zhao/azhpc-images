@@ -35,9 +35,9 @@
             "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v2.10.0/host/doca-host-2.10.0-093000_25.01_rhel810.x86_64.rpm"
         },
         "almalinux9.6": {
-            "version": "2.10.0",
-            "sha256": "806426bf03ae4a1be6cb6df36b4afc17b4c4b97acb2441f22b7069ae87dfddaa",
-            "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v2.10.0/host/doca-host-2.10.0-093000_25.01_rhel94.x86_64.rpm"            
+            "version": "3.0.0",
+            "sha256": "0c2502e014b840410889441b24e163d631130a883cda93faef8bb4e83300c476",
+            "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.0.0/host/doca-host-3.0.0-058000_25.04_rhel94.x86_64.rpm"     
         },
         "rhel8.10": {
             "version": "2.8.0",
@@ -213,12 +213,12 @@
         },
         "almalinux9.6": {
             "driver": {
-                "version": "12.8",
+                "version": "12.9",
                 "distribution": "rhel9"
             },
             "samples": {
-                "version": "12.8",
-                "sha256": "fe82484f9a87334075498f4e023a304cc70f240a285c11678f720f0a1e54a89d"
+                "version": "12.9",
+                "sha256": "2e67e1f6bdb15bf11b21e07e988e2f9f60fb054eff51ef01cebdd47229788015"
             }   
         },
         "rhel8.10": {
