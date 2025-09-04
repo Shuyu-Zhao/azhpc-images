@@ -136,7 +136,7 @@
             "fabricmanager": {
                 "distribution": "ubuntu2404",
                 "version": "580.82.07-1",
-                "sha256": "bddfec7bb2ef383843a0b45fa00a4990119f63ca0f0d613931269206646935eb"        
+                "sha256": "9f57de19616c328c7ba45431f0c96170c5d2275ee8b44c8b15a3d6e2b51fc521"        
             }   
         },
         "almalinux8.10": {

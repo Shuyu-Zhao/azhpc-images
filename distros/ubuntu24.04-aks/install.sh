@@ -30,7 +30,7 @@ if [ "$GPU" = "NVIDIA" ]; then
     $COMPONENT_DIR/install_nvidiagpudriver.sh "$SKU"
 
     # Install DCGM
-    $COMPONENT_DIR/install_dcgm.sh
+    #$COMPONENT_DIR/install_dcgm.sh
 fi
 
 # cleanup downloaded tarballs - clear some space

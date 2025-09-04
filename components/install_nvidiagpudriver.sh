@@ -44,7 +44,7 @@ write_component_version "NVIDIA" ${NVIDIA_DRIVER_VERSION}
 touch /etc/modules-load.d/nvidia-peermem.conf
 echo "nvidia_peermem" >> /etc/modules-load.d/nvidia-peermem.conf
 
-if [[ $DISTRIBUTION == ubuntu24.04-aks ]]; then
+if [[ $DISTRIBUTION != ubuntu24.04-aks ]]; then
     # Set the driver versions
     cuda_metadata=$(get_component_config "cuda")
     CUDA_DRIVER_VERSION=$(jq -r '.driver.version' <<< $cuda_metadata)
@@ -142,9 +142,9 @@ if [[ $DISTRIBUTION == ubuntu24.04-aks ]]; then
     make -j $(nproc)
     mv -vT ./Samples /usr/local/cuda-${CUDA_DRIVER_VERSION}/samples # Use the same version as the CUDA toolkit as thats where samples is being moved to
     popd
-fi
 
-$COMPONENT_DIR/install_gdrcopy.sh
+    $COMPONENT_DIR/install_gdrcopy.sh
+fi
 
 # Install nvidia fabric manager (required for ND96asr_v4)
 $COMPONENT_DIR/install_nvidia_fabric_manager.sh
