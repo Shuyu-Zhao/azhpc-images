@@ -17,6 +17,11 @@
             "sha256": "d33944191d8333f86a3ce0d6531ab542429c0ca4513286046ae51d554001ef9f",
             "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v2.10.0/host/doca-host_2.10.0-093000-25.01-ubuntu2404_amd64.deb"
         },
+        "ubuntu24.04-aks": {
+            "version": "3.1.0",
+            "sha256": "6a244de499f19869eb9d06455057cb95ed90745bd8c890ba1282df8d5c05a96e",
+            "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.1.0/host/doca-host_3.1.0-091000-25.07-ubuntu2404_amd64.deb"
+        },
         "almalinux8.10": {
             "version": "2.10.0",
             "sha256": "075324dfb074c99bb947217af6469b7d091eec642217e4db4430ac96b1d16ddc",
@@ -123,6 +128,17 @@
                 "sha256": "f9e4bf0b03d37facd1cd41f4bfd667bfab40b8c378b18ea0d9ca301d74ac6862"        
             }   
         },
+        "ubuntu24.04-aks": {
+            "driver": {
+                "version": "580.82.07",
+                "sha256": "061e48e11fe552232095811d0b1cea9b718ba2540d605074ff227fce0628798c"
+            },
+            "fabricmanager": {
+                "distribution": "ubuntu2404",
+                "version": "580.82.07-1",
+                "sha256": "bddfec7bb2ef383843a0b45fa00a4990119f63ca0f0d613931269206646935eb"        
+            }   
+        },
         "almalinux8.10": {
             "driver": {
                 "version": "570.133.20",
@@ -216,6 +232,11 @@
             "distribution": "Ubuntu22_04"
         },
         "ubuntu24.04": {
+            "version": "2.5-1",
+            "commit": "bda1f60346ffd564b12245662758286a6a5d18d6",
+            "distribution": "Ubuntu24_04"
+        },
+        "ubuntu24.04-aks": {
             "version": "2.5-1",
             "commit": "bda1f60346ffd564b12245662758286a6a5d18d6",
             "distribution": "Ubuntu24_04"

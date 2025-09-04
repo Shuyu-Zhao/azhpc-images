@@ -23,22 +23,32 @@ else
     git clone https://github.com/NVIDIA/gdrcopy.git
     pushd gdrcopy/packages/
     git checkout ${GDRCOPY_COMMIT}
-    if [[ $DISTRO_FAMILY == "ubuntu" ]]; then
+    if [[ $DISTRIBUTION == ubuntu* ]]; then
         # Install gdrcopy
         apt install -y build-essential devscripts debhelper check libsubunit-dev fakeroot pkg-config dkms
 
-        cuda_metadata=$(get_component_config "cuda")
-        CUDA_DRIVER_VERSION=$(jq -r '.driver.version' <<< $cuda_metadata)
+        if [[ $DISTRIBUTION == ubuntu24.04-aks ]]; then
+            ./build-deb-packages.sh 
+            dpkg -i gdrdrv-dkms_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
+            apt-mark hold gdrdrv-dkms
+            dpkg -i libgdrapi_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
+            apt-mark hold libgdrapi
+            dpkg -i gdrcopy_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
+            apt-mark hold gdrcopy
+        else 
+            cuda_metadata=$(get_component_config "cuda")
+            CUDA_DRIVER_VERSION=$(jq -r '.driver.version' <<< $cuda_metadata)
 
-        CUDA=/usr/local/cuda ./build-deb-packages.sh 
-        dpkg -i gdrdrv-dkms_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
-        apt-mark hold gdrdrv-dkms
-        dpkg -i libgdrapi_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
-        apt-mark hold libgdrapi
-        dpkg -i gdrcopy-tests_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}+cuda${CUDA_DRIVER_VERSION}.deb
-        apt-mark hold gdrcopy-tests
-        dpkg -i gdrcopy_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
-        apt-mark hold gdrcopy
+            CUDA=/usr/local/cuda ./build-deb-packages.sh 
+            dpkg -i gdrdrv-dkms_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
+            apt-mark hold gdrdrv-dkms
+            dpkg -i libgdrapi_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
+            apt-mark hold libgdrapi
+            dpkg -i gdrcopy-tests_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}+cuda${CUDA_DRIVER_VERSION}.deb
+            apt-mark hold gdrcopy-tests
+            dpkg -i gdrcopy_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
+            apt-mark hold gdrcopy
+        fi
     elif [[ $DISTRIBUTION == "almalinux8.10" ]]; then
         nvidia_metadata=$(get_component_config "nvidia")
         nvidia_driver_metadata=$(jq -r '.driver' <<< $nvidia_metadata)

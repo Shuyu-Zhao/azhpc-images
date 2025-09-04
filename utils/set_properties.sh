@@ -8,7 +8,7 @@ export UTILS_DIR=$TOP_DIR/utils
 export DISTRO_FAMILY=$(. /etc/os-release;echo $ID)
 export DISTRIBUTION=$(. /etc/os-release;echo $ID$VERSION_ID)
 
-if [[ $DISTRO_FAMILY == "ubuntu" ]]; then
+if [[ $DISTRIBUTION == ubuntu* ]]; then
     # Don't allow the kernel to be updated
     apt-mark hold linux-azure
     # upgrade pre-installed components
