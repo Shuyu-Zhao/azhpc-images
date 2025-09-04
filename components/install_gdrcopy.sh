@@ -39,7 +39,6 @@ else
         apt-mark hold gdrcopy-tests
         dpkg -i gdrcopy_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
         apt-mark hold gdrcopy
-    fi
     elif [[ $DISTRIBUTION == "almalinux8.10" ]]; then
         nvidia_metadata=$(get_component_config "nvidia")
         nvidia_driver_metadata=$(jq -r '.driver' <<< $nvidia_metadata)
