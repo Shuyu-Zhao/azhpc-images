@@ -10,7 +10,9 @@ apt-get update
 apt-get -y install build-essential
 apt-get -y install net-tools \
                    infiniband-diags \
+                   libnuma-dev \
                    dkms \
-                   jq 
+                   jq \
+                   cmake
                    
 echo ib_ipoib | sudo tee /etc/modules-load.d/ib_ipoib.conf

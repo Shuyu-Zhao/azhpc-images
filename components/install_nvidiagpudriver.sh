@@ -126,23 +126,22 @@ echo 'export PATH=$PATH:/usr/local/cuda/bin' | tee -a /etc/bash.bashrc
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64' | tee -a /etc/bash.bashrc
 write_component_version "CUDA" ${CUDA_DRIVER_VERSION}
 
-if [[ $DISTRIBUTION != ubuntu24.04-aks ]]; then
-    # Download CUDA samples
-    TARBALL="v${CUDA_SAMPLES_VERSION}.tar.gz"
-    if [[ $DISTRIBUTION == "azurelinux3.0" ]]; then
-        cp $TOP_DIR/prebuilt/${TARBALL} .
-    else
-        CUDA_SAMPLES_DOWNLOAD_URL=https://github.com/NVIDIA/cuda-samples/archive/refs/tags/${TARBALL}
-        download_and_verify ${CUDA_SAMPLES_DOWNLOAD_URL} ${CUDA_SAMPLES_SHA256}
-    fi
-    tar -xvf ${TARBALL}
-    pushd ./cuda-samples-${CUDA_SAMPLES_VERSION}
-    mkdir build && cd build
-    cmake -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc ..
-    make -j $(nproc)
-    mv -vT ./Samples /usr/local/cuda-${CUDA_DRIVER_VERSION}/samples # Use the same version as the CUDA toolkit as thats where samples is being moved to
-    popd
+# Download CUDA samples
+TARBALL="v${CUDA_SAMPLES_VERSION}.tar.gz"
+if [[ $DISTRIBUTION == "azurelinux3.0" ]]; then
+    cp $TOP_DIR/prebuilt/${TARBALL} .
+else
+    CUDA_SAMPLES_DOWNLOAD_URL=https://github.com/NVIDIA/cuda-samples/archive/refs/tags/${TARBALL}
+    download_and_verify ${CUDA_SAMPLES_DOWNLOAD_URL} ${CUDA_SAMPLES_SHA256}
 fi
+tar -xvf ${TARBALL}
+pushd ./cuda-samples-${CUDA_SAMPLES_VERSION}
+mkdir build && cd build
+cmake -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc ..
+make -j $(nproc)
+mv -vT ./Samples /usr/local/cuda-${CUDA_DRIVER_VERSION}/samples # Use the same version as the CUDA toolkit as thats where samples is being moved to
+popd
+
 $COMPONENT_DIR/install_gdrcopy.sh
 
 # Install nvidia fabric manager (required for ND96asr_v4)
