@@ -42,6 +42,9 @@ rm -Rf -- */
 # Azure Linux Agent
 $COMPONENT_DIR/install_waagent.sh
 
+# copy test file
+$COMPONENT_DIR/copy_test_file.sh
+
 # optimizations
 # $COMPONENT_DIR/hpc-tuning.sh
 
