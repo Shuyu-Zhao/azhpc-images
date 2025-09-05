@@ -45,6 +45,9 @@ $COMPONENT_DIR/install_waagent.sh
 # copy test file
 $COMPONENT_DIR/copy_test_file.sh
 
+# SKU Customization
+$COMPONENT_DIR/setup_sku_customizations.sh
+
 # optimizations
 # $COMPONENT_DIR/hpc-tuning.sh
 
