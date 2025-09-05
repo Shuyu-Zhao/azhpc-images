@@ -135,7 +135,7 @@
             },
             "fabricmanager": {
                 "distribution": "ubuntu2404",
-                "version": "570.172.08",
+                "version": "570.172.08-1",
                 "sha256": "36bbcce6130f46df6fd2cbc4f09df8207442a884ef726a40cf5e9edc13b2bfd9"        
             }   
         },
