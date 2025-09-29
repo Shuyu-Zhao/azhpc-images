@@ -28,7 +28,7 @@ source ../../utils/set_properties.sh
 $COMPONENT_DIR/install_cmake.sh
 
 # install Lustre client
-$COMPONENT_DIR/install_lustre_client.sh
+# $COMPONENT_DIR/install_lustre_client.sh
 
 # install DOCA OFED
 $COMPONENT_DIR/install_doca.sh
@@ -48,9 +48,12 @@ if [ "$GPU" = "NVIDIA" ]; then
     
     # Install NVIDIA docker container
     $COMPONENT_DIR/install_docker.sh
+systemsctl status docker
 
     # Install DCGM
     $COMPONENT_DIR/install_dcgm.sh
+systemsctl status docker
+
 fi
 
 if [ "$GPU" = "AMD" ]; then
@@ -67,9 +70,11 @@ fi
 
 # install AMD libs
 $COMPONENT_DIR/install_amd_libs.sh
+systemsctl status docker
 
 # install Intel libraries
 $COMPONENT_DIR/install_intel_libs.sh
+systemsctl status docker
 
 # cleanup downloaded tarballs - clear some space
 rm -rf *.tgz *.bz2 *.tbz *.tar.gz *.run *.deb *_offline.sh
@@ -79,39 +84,51 @@ rm -Rf -- */
 
 # optimizations
 $COMPONENT_DIR/hpc-tuning.sh
+systemsctl status docker
 
 # Install AZNFS Mount Helper
 $COMPONENT_DIR/install_aznfs.sh
+systemsctl status docker
 
 # install diagnostic script
 $COMPONENT_DIR/install_hpcdiag.sh
+systemsctl status docker
 
 # install monitor tools
 $COMPONENT_DIR/install_monitoring_tools.sh
+systemsctl status docker
 
 # install persistent rdma naming
 $COMPONENT_DIR/install_azure_persistent_rdma_naming.sh
+systemsctl status docker
 
 # copy test file
 $COMPONENT_DIR/copy_test_file.sh
+systemsctl status docker
 
 # install Azure/NHC Health Checks
 $COMPONENT_DIR/install_health_checks.sh "$GPU"
+systemsctl status docker
 
 # disable cloud-init
 $COMPONENT_DIR/disable_cloudinit.sh
+systemsctl status docker
 
 # SKU Customization
 $COMPONENT_DIR/setup_sku_customizations.sh
+systemsctl status docker
 
 # scan vulnerabilities using Trivy
 $COMPONENT_DIR/trivy_scan.sh
+systemsctl status docker
 
 # diable auto kernel updates
 ./disable_auto_upgrade.sh
+systemsctl status docker
 
 # Disable Predictive Network interface renaming
 ./disable_predictive_interface_renaming.sh
+systemsctl status docker
 
 # clear history
 # Uncomment the line below if you are running this on a VM

@@ -21,8 +21,13 @@ $COMPONENT_DIR/install_nvidia_container_toolkit.sh
 systemctl enable docker
 systemctl restart docker
 
+systemsctl status docker
+
 # restart containerd service
 systemctl restart containerd
+
+systemsctl status docker
+
 
 # status of containerd snapshotter plugins
 ctr plugin ls
