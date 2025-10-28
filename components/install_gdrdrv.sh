@@ -23,6 +23,5 @@ else
         wget $DOWNLOAD_URL
         rpm -Uvh gdrcopy-kmod-${GDRCOPY_VERSION}dkms.${GDRCOPY_DISTRIBUTION}.noarch.rpm
     fi
-    popd
 fi
 write_component_version "GDRDRV" ${GDRCOPY_VERSION}
