@@ -29,12 +29,6 @@ if [ "$GPU" = "NVIDIA" ]; then
     $COMPONENT_DIR/install_nvidiagpudriver.sh "$SKU"
 fi
 
-# install AMD libs
-$COMPONENT_DIR/install_amd_libs.sh
-
-# install Intel libraries
-$COMPONENT_DIR/install_intel_libs.sh
-
 # cleanup downloaded tarballs - clear some space
 rm -rf *.tgz *.bz2 *.tbz *.tar.gz *.run *.deb *_offline.sh
 rm -rf /tmp/MLNX_OFED_LINUX* /tmp/*conf*
@@ -52,9 +46,6 @@ $COMPONENT_DIR/setup_sku_customizations.sh
 
 # scan vulnerabilities using Trivy
 $COMPONENT_DIR/trivy_scan.sh
-
-# diable auto kernel updates
-./disable_auto_upgrade.sh
 
 # clear history
 # Uncomment the line below if you are running this on a VM

@@ -44,7 +44,7 @@ write_component_version "NVIDIA" ${NVIDIA_DRIVER_VERSION}
 touch /etc/modules-load.d/nvidia-peermem.conf
 echo "nvidia_peermem" >> /etc/modules-load.d/nvidia-peermem.conf
 
-$COMPONENT_DIR/install_gdrcopy.sh
+$COMPONENT_DIR/install_gdrgrv.sh
 
 # Install nvidia fabric manager (required for ND96asr_v4)
 $COMPONENT_DIR/install_nvidia_fabric_manager.sh

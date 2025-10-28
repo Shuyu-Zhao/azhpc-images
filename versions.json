@@ -196,12 +196,12 @@
         },
         "ubuntu24.04": {
             "driver": {
-                "version": "12.9",
+                "version": "13.0",
                 "distribution": "ubuntu2404"
             },
             "samples": {
-                "version": "12.9",
-                "sha256": "2e67e1f6bdb15bf11b21e07e988e2f9f60fb054eff51ef01cebdd47229788015"
+                "version": "13.0",
+                "sha256": "63cc9d5d8280c87df3c1f4e2276234a0f42cc497c52b40dd5bdda2836607db79"
             }   
         },        
         "almalinux8.10": {

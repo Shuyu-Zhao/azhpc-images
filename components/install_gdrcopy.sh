@@ -3,8 +3,6 @@ set -ex
 
 source ${UTILS_DIR}/utilities.sh
 
-CUDA_SUPPORT=$1
-
 gdrcopy_metadata=$(get_component_config "gdrcopy")
 GDRCOPY_VERSION=$(jq -r '.version' <<< $gdrcopy_metadata)
 GDRCOPY_COMMIT=$(jq -r '.commit' <<< $gdrcopy_metadata)
@@ -28,23 +26,17 @@ else
     if [[ $DISTRIBUTION == *"ubuntu"* ]]; then
         # Install gdrcopy
         apt install -y build-essential devscripts debhelper check libsubunit-dev fakeroot pkg-config dkms
-        if [ "$CUDA_SUPPORT" = "Enable" ]; then
-            cuda_metadata=$(get_component_config "cuda")
-            CUDA_DRIVER_VERSION=$(jq -r '.driver.version' <<< $cuda_metadata)        
-            CUDA=/usr/local/cuda ./build-deb-packages.sh 
-        else
-            ./build-deb-packages.sh 
-        fi
+        cuda_metadata=$(get_component_config "cuda")
+        CUDA_DRIVER_VERSION=$(jq -r '.driver.version' <<< $cuda_metadata)        
+        CUDA=/usr/local/cuda ./build-deb-packages.sh 
         dpkg -i gdrdrv-dkms_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
         apt-mark hold gdrdrv-dkms
         dpkg -i libgdrapi_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
         apt-mark hold libgdrapi
+        dpkg -i gdrcopy-tests_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}+cuda${CUDA_DRIVER_VERSION}.deb
+        apt-mark hold gdrcopy-tests
         dpkg -i gdrcopy_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}.deb
         apt-mark hold gdrcopy
-        if [ "$CUDA_SUPPORT" = "Enable" ]; then
-            dpkg -i gdrcopy-tests_${GDRCOPY_VERSION}_amd64.${GDRCOPY_DISTRIBUTION}+cuda${CUDA_DRIVER_VERSION}.deb
-            apt-mark hold gdrcopy-tests
-        fi
     elif [[ $DISTRIBUTION == almalinux* ]]; then
         nvidia_metadata=$(get_component_config "nvidia")
         nvidia_driver_metadata=$(jq -r '.driver' <<< $nvidia_metadata)

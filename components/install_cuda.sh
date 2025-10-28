@@ -105,7 +105,7 @@ make -j $(nproc)
 mv -vT ./Samples /usr/local/cuda-${CUDA_DRIVER_VERSION}/samples # Use the same version as the CUDA toolkit as thats where samples is being moved to
 popd
 
-$COMPONENT_DIR/install_gdrcopy.sh "Enable"
+$COMPONENT_DIR/install_gdrcopy.sh
 
 # cleanup downloaded files
 rm -rf *.run *tar.gz *.rpm
