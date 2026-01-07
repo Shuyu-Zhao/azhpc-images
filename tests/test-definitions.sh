@@ -51,9 +51,13 @@ function verify_ib_device_status {
     check_exit_code "IB device state: LinkUp" "IB link not up"
 
     # verify ifconfig
-    ifconfig | grep "ib[[:digit:]]:\|ibP"
-    check_exit_code "IB device is configured" "IB device not configured"
-
+    if [[ "$VMSIZE" == "standard_nd128isr_ndr_gb200_v6" || "$VMSIZE" == "standard_nd128isr_gb300_v6" ]]; then
+        ! ifconfig | grep "ib[[:digit:]]:\|ibP"
+        check_exit_code "IB Links are Down" "IB Links are Brought Up unexpectedly"
+    else
+        ifconfig | grep "ib[[:digit:]]:\|ibP"
+        check_exit_code "IB device is configured" "IB device not configured"
+    fi
     #verify hostname -i returns IP address only
     hostname -i | grep -E "^([[:digit:]]{1,3}[\.]){3}[[:digit:]]{1,3}$"
     check_exit_code "Hostname -i returns IP address" "Hostname -i does not return IP address"

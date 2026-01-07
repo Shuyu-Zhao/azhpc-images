@@ -81,7 +81,10 @@ else
     update_waagent_conf "Extensions.GoalStatePeriod" "300"
     update_waagent_conf "Extensions.InitialGoalStatePeriod" "6"
     update_waagent_conf "OS.EnableFirewallPeriod" "300"
-    update_waagent_conf "OS.EnableRDMA" "y"
+    # Disable RDMA for GB Series so the IB Links are Down by default
+    if [[ "$SKU" != "GB200" ]]; then 
+        update_waagent_conf "OS.EnableRDMA" "y"
+    fi
     update_waagent_conf "OS.RemovePersistentNetRulesPeriod" "300"
     update_waagent_conf "OS.RootDeviceScsiTimeoutPeriod" "300"
     update_waagent_conf "OS.MonitorDhcpClientRestartPeriod" "60"
