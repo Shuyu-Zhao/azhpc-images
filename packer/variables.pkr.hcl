@@ -587,6 +587,10 @@ locals {
       },
       "azurelinux" = {
         "3.0"   = "AzureLinuxHPC-3.0-NonFIPS-${local.internal_sig_image_definition_platform}${local.internal_sig_image_definition_sku}gen2-TL"
+      },
+      "rocky" = {
+        "8.10"  = "RockyHPC-8.10-${local.internal_sig_image_definition_platform}${local.internal_sig_image_definition_sku}gen2",
+        "9.7"   = "RockyHPC-9.7-${local.internal_sig_image_definition_platform}${local.internal_sig_image_definition_sku}gen2"       
       }
     },
     "Marketplace-FIPS" = {
