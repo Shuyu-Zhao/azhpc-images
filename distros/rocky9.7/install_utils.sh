@@ -138,7 +138,7 @@ rm -f environment-modules-5.3.0-1.el9.x86_64.rpm
 dnf install -y kernel-abi-stablelists
 
 ## Disable kernel updates (but not kernel-rpm-macros and other tools)
-echo "exclude=kernel kernel-core kernel-modules kernel-devel kernel-headers kernel-modules-extra" | tee -a /etc/dnf/dnf.conf
+echo "exclude=kernel*" | tee -a /etc/dnf/dnf.conf
 
 # Disable dependencies on kernel core
 sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
