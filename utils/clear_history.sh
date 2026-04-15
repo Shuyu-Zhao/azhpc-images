@@ -93,7 +93,7 @@ if [[ $distro == *"Ubuntu"* ]]
 then
     # Remove Defender
     if dpkg -l | grep -qw mdatp; then
-        apt-get purge -y mdatp
+        apt-get purge -y mdatp || true
     fi
 
     # Remove Azure Proxy Agent
@@ -102,7 +102,7 @@ then
     # and conflicts with eBPF programs intercepted by Kubernetes CNI. 
     # See https://learn.microsoft.com/en-us/azure/virtual-machines/metadata-security-protocol/overview, https://github.com/Azure/GuestProxyAgent/issues/295
     if dpkg -l | grep -qw azure-proxy-agent; then
-        apt-get purge -y azure-proxy-agent
+        apt-get purge -y azure-proxy-agent || true
     fi
 
 elif [[ $distro == *"AzureLinux"* ]]
@@ -124,7 +124,7 @@ cat > /etc/systemd/journald.conf.d/volatile.conf <<'JEOF'
 [Journal]
 Storage=volatile
 JEOF
-systemctl restart systemd-journald
+systemctl restart systemd-journald || true
 # Stop rsyslog so it releases log file handles
 systemctl stop rsyslog 2>/dev/null || true
 # Delete Defender related files
@@ -154,7 +154,7 @@ rm -rf /var/lib/hyperv/.kvp_pool_0
 rm -f /etc/*-
 rm -rf /tmp/ssh-* /tmp/yum* /tmp/tmp* /tmp/*.log* /tmp/*tenant* /tmp/*.gz
 rm -rf /tmp/nvidia* /tmp/MLNX* /tmp/ofed.conf /tmp/dkms* /tmp/*mlnx*
-cloud-init clean --logs
+cloud-init clean --logs || true
 rm -rf /var/lib/cloud/instances/* || true
 rm -rf /run/cloud-init
 rm -rf /usr/tmp/dnf*
