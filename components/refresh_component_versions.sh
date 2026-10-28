@@ -392,7 +392,12 @@ if [[ "${GPU_PLATFORM}" == "NVIDIA" ]]; then
         MOBY_VERSION=$(rpm -q --qf '%{VERSION}-%{RELEASE}' moby-engine 2>/dev/null || true)
         [[ "${MOBY_VERSION}" == *"not installed"* ]] && MOBY_VERSION=""
     fi
-    write_version "MOBY_ENGINE" "${MOBY_VERSION}"
+    if [[ -z "${MOBY_VERSION}" ]] && command -v rpm &>/dev/null && rpm -q docker-ce &>/dev/null; then
+        # EL10 installs Docker CE because PMC has no moby-* packages for it.
+        write_version "DOCKER_CE" "$(rpm -q --qf '%{VERSION}-%{RELEASE}' docker-ce)"
+    else
+        write_version "MOBY_ENGINE" "${MOBY_VERSION}"
+    fi
     
     # NVIDIA Container Toolkit
     # `nvidia-container-toolkit --version` prints two lines (version + commit).

@@ -74,8 +74,14 @@ dnf install -y numactl \
     azure-vm-utils \
     json-c-devel \
     dos2unix \
-    azcopy \
     mdadm
+
+# Install azcopy
+wget -O azcopy_v10.tar.gz https://aka.ms/downloadazcopy-v10-linux
+tar -xvf azcopy_v10.tar.gz
+sudo cp ./azcopy_linux_amd64_*/azcopy /usr/bin/
+sudo chmod +x /usr/bin/azcopy
+rm -rf azcopy_*
 
 dnf install -y environment-modules
 

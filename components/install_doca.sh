@@ -22,7 +22,6 @@ fi
 
 configure_doca_dkms_patches() {
     local dkms_module=$1
-    local kernel_header=/usr/src/kernels/$(uname -r)/include/linux/dpll.h
     local dkms_conf=/etc/dkms/${dkms_module}.conf
     local patch_dir=/etc/dkms/${dkms_module}/patches
 
@@ -34,17 +33,6 @@ configure_doca_dkms_patches() {
 PATCH+=("peer-mem-gpl.patch")
 EOF
     fi
-
-    # Alma/Rocky/RHEL 9.8 kernels use Red Hat's newer DPLL ffo_get callback
-    # signature, while DOCA 3.2.x / MLNX OFED 25.10 still ships the older one.
-    [[ "${dkms_module}" == "mlnx-ofa_kernel" ]] || return 0
-    [[ -f "${kernel_header}" ]] || return 0
-    grep -q 'struct dpll_ffo_param \*ffo,' "${kernel_header}" || return 0
-
-    cp "${COMPONENT_DIR}/patches/mlnx-ofa-kernel-dpll-ffo-param.patch" "${patch_dir}/dpll-ffo-param.patch"
-    cat >> "${dkms_conf}" <<'EOF'
-PATCH+=("dpll-ffo-param.patch")
-EOF
 }
 
 configure_mlnx_ofed_kernel_dkms_xdp_patch() {
@@ -241,7 +229,6 @@ elif [[ $DISTRIBUTION == "azurelinux3.0" ]]; then
     install_hpcx_doca_ofed_deps_rpm_marker
     dnf -y install doca-ofed
 else
-    download_and_verify $DOCA_URL $DOCA_SHA256
     # RHEL-family: AlmaLinux, Rocky Linux, RHEL, etc.
     rpm -i $DOCA_FILE
     dnf clean all

@@ -72,30 +72,30 @@
         },
         "rhel8.10": {
             "x86_64": {
-                "version": "3.2.1",
-                "sha256": "ce630bb2e98f4202ed041d8607c72caf9db2ea8a9d795b982823af5493e4cb4b",
-                "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.2.1/host/doca-host-3.2.1-044000_25.10_rhel8.x86_64.rpm"
+                "version": "3.2.3",
+                "sha256": "613909dd0d1bdc3abd99112ff8cd59c62604d3edc2dd0b51a7b8fdaf30ca50c1",
+                "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.2.3/host/doca-host-3.2.3-019000_25.10_rhel8.x86_64.rpm"
             }
         },
         "rocky8.10": {
             "x86_64": {
-                "version": "3.2.1",
-                "sha256": "ce630bb2e98f4202ed041d8607c72caf9db2ea8a9d795b982823af5493e4cb4b",
-                "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.2.1/host/doca-host-3.2.1-044000_25.10_rhel8.x86_64.rpm"
+                "version": "3.2.3",
+                "sha256": "613909dd0d1bdc3abd99112ff8cd59c62604d3edc2dd0b51a7b8fdaf30ca50c1",
+                "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.2.3/host/doca-host-3.2.3-019000_25.10_rhel8.x86_64.rpm"
             }
         },
         "rocky9.8": {
             "x86_64": {
-                "version": "3.2.2",
-                "sha256": "97d2ff3f271bd7e324e2c25b17ac12fb22e91be3e8a4bdf50a399ced1e5a7bc9",
-                "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.2.2/host/doca-host-3.2.2-035000_25.10_rhel9.x86_64.rpm"
+                "version": "3.2.3",
+                "sha256": "59150518897d998d19c87c814550d8b2c70c344053201d24f393f3df165e7825",
+                "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.2.3/host/doca-host-3.2.3-019000_25.10_rhel9.x86_64.rpm"
             }
         },
         "rhel9.8": {
             "x86_64": {
-                "version": "3.2.2",
-                "sha256": "97d2ff3f271bd7e324e2c25b17ac12fb22e91be3e8a4bdf50a399ced1e5a7bc9",
-                "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.2.2/host/doca-host-3.2.2-035000_25.10_rhel9.x86_64.rpm"
+                "version": "3.2.3",
+                "sha256": "59150518897d998d19c87c814550d8b2c70c344053201d24f393f3df165e7825",
+                "url": "https://www.mellanox.com/downloads/DOCA/DOCA_v3.2.3/host/doca-host-3.2.3-019000_25.10_rhel9.x86_64.rpm"
             }
         }
     },
