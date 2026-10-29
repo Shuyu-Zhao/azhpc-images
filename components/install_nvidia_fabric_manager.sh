@@ -65,7 +65,10 @@ else
         "https://developer.download.nvidia.com/compute/cuda/repos/${NVIDIA_FABRICMANAGER_DISTRIBUTION}/x86_64/cuda-${NVIDIA_FABRICMANAGER_DISTRIBUTION}.repo"
     # Releases are "1" up to 580.126.20 and "1.el<N>" from 580.159.03, so match
     # the configured release with an optional dist tag.
-    dnf install -y --setopt=reposdir="${FM_REPOS_DIR}" "${PACKAGE_NAME}-${NVIDIA_FABRICMANAGER_VERSION}*"
+    # Bypass driver-module filtering for this isolated, version-pinned install.
+    dnf install -y --setopt=reposdir="${FM_REPOS_DIR}" \
+        --setopt="cuda-${NVIDIA_FABRICMANAGER_DISTRIBUTION}-x86_64.module_hotfixes=true" \
+        "${PACKAGE_NAME}-${NVIDIA_FABRICMANAGER_VERSION}*"
     rm -rf "${FM_REPOS_DIR}"
 
     installed_fm=$(rpm -q --qf '%{VERSION}-%{RELEASE}' "${PACKAGE_NAME}")
