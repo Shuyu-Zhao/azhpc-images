@@ -238,7 +238,7 @@ else
     sed -i '/^exclude=/d' /etc/dnf/dnf.conf
     install_hpcx_doca_ofed_deps_rpm_marker
     configure_doca_dkms_patches mlnx-ofa_kernel
-    dnf -y install doca-ofed
+    dnf -y install --setopt=baseos.excludepkgs=perftest doca-ofed
     check_dkms_status mlnx-ofa_kernel iser isert srp
     # Restore exclusion
     mv /etc/dnf/dnf.conf.bak /etc/dnf/dnf.conf
