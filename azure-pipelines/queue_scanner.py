@@ -60,7 +60,17 @@ def queue_scanner(pipeline_id, branch, pr_number):
         },
     }
     url = f"{ORG}/{PROJECT}/_apis/pipelines/{pipeline_id}/runs?api-version={API_VERSION}"
-    return request("POST", url, json=body).json()
+    run = request("POST", url, json=body).json()
+    tag = f"triggered_by:{os.environ['BUILD_BUILDID']}"
+    try:
+        request(
+            "POST",
+            f"{ORG}/{PROJECT}/_apis/build/builds/{run['id']}/tags?api-version={API_VERSION}",
+            json=[tag],
+        )
+    except requests.RequestException as error:
+        print(f"Could not tag scanner run {run['id']} with {tag}: {error}", flush=True)
+    return run
 
 
 def get_scanner(run_id):
