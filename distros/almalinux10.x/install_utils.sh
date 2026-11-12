@@ -33,6 +33,8 @@ dnf install -y wget \
 
 # Install EPEL repository
 dnf install -y epel-release
+# The initial epel-release may be outdated; upgrade it now so later EPEL installs use its current repo config
+dnf upgrade -y --refresh epel-release
 
 dnf -y install dnf-plugins-core
 dnf config-manager --set-enabled crb
