@@ -1,0 +1,233 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1620" height="1020" viewBox="0 0 1620 1020" font-family="Segoe UI, Liberation Sans, Arial, sans-serif">
+<rect width="1620" height="1020" fill="#ffffff"/>
+<text x="30" y="40" font-size="22" font-weight="bold" fill="#1f2328" text-anchor="start" >Azure GPU VM stack: layers and where compatibility matters</text>
+<text x="30" y="64" font-size="13.5" font-weight="normal" fill="#57606a" text-anchor="start" >ND / NC (passthrough) and NV (vGPU) SKUs on Azure, from the AKS / HPC image point of view</text>
+<rect x="18" y="84" width="904" height="436" rx="12" fill="none" stroke="#0969da" stroke-width="2" stroke-dasharray="7 5"/>
+<rect x="34" y="76" width="560" height="18" fill="#ffffff"/>
+<text x="40" y="90" font-size="12.5" font-weight="bold" fill="#0969da" text-anchor="start" >GUEST VM = THE IMAGE (HPC image / AKS VHD): image builder controls</text>
+<rect x="30" y="104" width="880" height="120" rx="10" fill="#ddf4ff" stroke="#54aeff" stroke-width="1.5"/>
+<text x="45" y="126" font-size="14.5" font-weight="bold" fill="#1f2328" text-anchor="start" >① AKS / Kubernetes layer</text>
+<rect x="46.0" y="142" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="125" y="167.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >kubelet · containerd</text>
+<text x="125" y="183.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >runc · CNI</text>
+<rect x="216.0" y="142" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="295" y="167.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >Cached images</text>
+<text x="295" y="183.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >CNI, CoreDNS, pause…</text>
+<rect x="386.0" y="142" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="465" y="167.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >Device plugin / DRA</text>
+<text x="465" y="183.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >nvidia.com/gpu, DRANET</text>
+<rect x="556.0" y="142" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="635" y="167.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >dcgm-exporter</text>
+<text x="635" y="183.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >GPU metrics</text>
+<rect x="726.0" y="142" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="805" y="167.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >GPU NPD</text>
+<text x="805" y="183.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >GPU count, IB, NVLink</text>
+<rect x="30" y="238" width="880" height="122" rx="10" fill="#dafbe1" stroke="#4ac26b" stroke-width="1.5"/>
+<text x="45" y="260" font-size="14.5" font-weight="bold" fill="#1f2328" text-anchor="start" >② GPU / HPC user space</text>
+<rect x="46.0" y="278" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="125" y="303.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >DCGM</text>
+<text x="125" y="319.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >container toolkit</text>
+<rect x="216.0" y="278" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="295" y="303.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >CUDA libs · NCCL</text>
+<text x="295" y="319.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >NVML / nvidia-smi</text>
+<rect x="386.0" y="278" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="465" y="303.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >Fabric manager</text>
+<text x="465" y="319.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >NVSwitch SKUs (A/H100)</text>
+<rect x="556.0" y="278" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="635" y="303.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >IMEX</text>
+<text x="635" y="319.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >GB200 / GB300 only</text>
+<rect x="726.0" y="278" width="158" height="58" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="805" y="303.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >DOCA / rdma-core</text>
+<text x="805" y="319.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >user space, HPC-X</text>
+<rect x="30" y="374" width="880" height="128" rx="10" fill="#dafbe1" stroke="#4ac26b" stroke-width="1.5"/>
+<text x="45" y="396" font-size="14.5" font-weight="bold" fill="#1f2328" text-anchor="start" >③ Guest kernel space</text>
+<rect x="46.0" y="414" width="158" height="72" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="125" y="438.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >Guest kernel</text>
+<text x="125" y="454.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >linux-azure</text>
+<text x="125" y="470.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >(pinned per release)</text>
+<rect x="216.0" y="414" width="158" height="72" rx="6" fill="#fff8c5" stroke="#bf8700" stroke-width="1.2"/>
+<text x="295" y="438.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >NVIDIA kernel driver</text>
+<text x="295" y="454.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >nvidia.ko (DKMS)</text>
+<text x="295" y="470.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >+ GSP firmware blob</text>
+<rect x="386.0" y="414" width="158" height="72" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="465" y="438.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >GRID guest driver</text>
+<text x="465" y="454.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >NV / A10 (vGPU)</text>
+<text x="465" y="470.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >instead of nvidia.ko</text>
+<rect x="726.0" y="414" width="158" height="72" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="805" y="438.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >DOCA-OFED modules</text>
+<text x="805" y="454.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >mlx5_ib · ib_*</text>
+<text x="805" y="470.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >+ nvidia-peermem</text>
+<rect x="18" y="536" width="904" height="462" rx="12" fill="none" stroke="#cf222e" stroke-width="2" stroke-dasharray="7 5"/>
+<rect x="30" y="556" width="880" height="118" rx="10" fill="#f6f8fa" stroke="#afb8c1" stroke-width="1.5"/>
+<text x="45" y="578" font-size="14.5" font-weight="bold" fill="#1f2328" text-anchor="start" >④ Hypervisor / host OS (Azure Hyper-V)</text>
+<rect x="46.0" y="596" width="158" height="62" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="125" y="623.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >Host OS + agents</text>
+<text x="125" y="639.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >Hyper-V</text>
+<rect x="216.0" y="596" width="158" height="62" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="295" y="615.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >PCIe passthrough</text>
+<text x="295" y="631.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >(DDA): no GPU</text>
+<text x="295" y="647.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >translation layer</text>
+<rect x="386.0" y="596" width="158" height="62" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="465" y="615.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >vGPU manager</text>
+<text x="465" y="631.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >host GRID driver</text>
+<text x="465" y="647.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >NV / A10 only</text>
+<rect x="726.0" y="596" width="158" height="62" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="805" y="615.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >InfiniBand</text>
+<text x="805" y="631.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >SR-IOV VF</text>
+<text x="805" y="647.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >Accelerated Net</text>
+<rect x="30" y="688" width="880" height="180" rx="10" fill="#fff1e5" stroke="#fb8f44" stroke-width="1.5"/>
+<text x="45" y="710" font-size="14.5" font-weight="bold" fill="#1f2328" text-anchor="start" >⑤ Physical host firmware: CRD bundle</text>
+<rect x="46.0" y="744" width="158" height="62" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="125" y="771.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >Host BIOS · BMC</text>
+<text x="125" y="787.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >CPU microcode</text>
+<rect x="216.0" y="744" width="158" height="62" rx="6" fill="#fff8c5" stroke="#bf8700" stroke-width="1.2"/>
+<text x="295" y="771.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >GPU VBIOS</text>
+<text x="295" y="787.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >InfoROM</text>
+<rect x="386.0" y="744" width="158" height="62" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="465" y="763.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >NVSwitch fw</text>
+<text x="465" y="779.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >HGX baseboard</text>
+<text x="465" y="795.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >(BMC / CPLD)</text>
+<rect x="556.0" y="744" width="158" height="62" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="635" y="771.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >NVLink switch-tray</text>
+<text x="635" y="787.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >fw (GB NVL72 rack)</text>
+<rect x="726.0" y="744" width="158" height="62" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="805" y="771.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >ConnectX NIC fw</text>
+<text x="805" y="787.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >(IB / Ethernet)</text>
+<text x="45" y="832" font-size="12" font-weight="normal" fill="#9a6700" text-anchor="start" >CRD = versioned hardware + firmware bundle per SKU; it lists the recommended / highest validated guest GPU driver.</text>
+<text x="45" y="852" font-size="12" font-weight="normal" fill="#9a6700" text-anchor="start" >Updated by the fleet independently of the guest image; mixed CRDs coexist in the fleet during rollouts.</text>
+<rect x="30" y="882" width="880" height="104" rx="10" fill="#f6f8fa" stroke="#afb8c1" stroke-width="1.5"/>
+<text x="45" y="904" font-size="14.5" font-weight="bold" fill="#1f2328" text-anchor="start" >⑥ Hardware</text>
+<rect x="46.0" y="920" width="158" height="52" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="125" y="942.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >CPU</text>
+<text x="125" y="958.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >x86 / Grace arm64</text>
+<rect x="216.0" y="920" width="158" height="52" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="295" y="942.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >GPUs</text>
+<text x="295" y="958.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >A100 … GB300, MI300X</text>
+<rect x="386.0" y="920" width="158" height="52" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="465" y="942.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >NVSwitch / NVLink</text>
+<text x="465" y="958.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >in-node</text>
+<rect x="556.0" y="920" width="158" height="52" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="635" y="942.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >NVLink rack</text>
+<text x="635" y="958.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >GB NVL72 (cross-node)</text>
+<rect x="726.0" y="920" width="158" height="52" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.2"/>
+<text x="805" y="942.0" font-size="12.5" font-weight="bold" fill="#1f2328" text-anchor="middle" >ConnectX-7/8</text>
+<text x="805" y="958.0" font-size="11.5" font-weight="normal" fill="#57606a" text-anchor="middle" >InfiniBand NICs</text>
+<line x1="365" y1="486" x2="365" y2="744" stroke="#cf222e" stroke-width="3" stroke-dasharray="6 4"/>
+<polygon points="359,735 371,735 365,744" fill="#cf222e"/>
+<polygon points="359,495 371,495 365,486" fill="#cf222e"/>
+<circle cx="365" cy="511" r="12" fill="#cf222e" stroke="#fff" stroke-width="2"/>
+<text x="365" y="515.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >A</text>
+<line x1="705" y1="336" x2="705" y2="744" stroke="#cf222e" stroke-width="3" stroke-dasharray="6 4"/>
+<polygon points="699,735 711,735 705,744" fill="#cf222e"/>
+<polygon points="699,345 711,345 705,336" fill="#cf222e"/>
+<circle cx="705" cy="511" r="12" fill="#cf222e" stroke="#fff" stroke-width="2"/>
+<text x="705" y="515.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >C</text>
+<line x1="535" y1="486" x2="535" y2="596" stroke="#cf222e" stroke-width="3" stroke-dasharray="6 4"/>
+<polygon points="529,587 541,587 535,596" fill="#cf222e"/>
+<polygon points="529,495 541,495 535,486" fill="#cf222e"/>
+<circle cx="535" cy="511" r="12" fill="#cf222e" stroke="#fff" stroke-width="2"/>
+<text x="535" y="515.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >D</text>
+<line x1="875" y1="486" x2="875" y2="744" stroke="#cf222e" stroke-width="3" stroke-dasharray="6 4"/>
+<polygon points="869,735 881,735 875,744" fill="#cf222e"/>
+<polygon points="869,495 881,495 875,486" fill="#cf222e"/>
+<circle cx="875" cy="511" r="12" fill="#cf222e" stroke="#fff" stroke-width="2"/>
+<text x="875" y="515.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >E</text>
+<rect x="660.0" y="113" width="238.0" height="19" rx="9" fill="#ffffff" fill-opacity="0.92" stroke="#d0d7de"/>
+<text x="891" y="127" font-size="12" font-weight="normal" fill="#57606a" text-anchor="end" font-style="italic">Owner: AKS (AgentBaker VHD, weekly)</text>
+<rect x="647.2" y="247" width="250.8" height="19" rx="9" fill="#ffffff" fill-opacity="0.92" stroke="#d0d7de"/>
+<text x="891" y="261" font-size="12" font-weight="normal" fill="#57606a" text-anchor="end" font-style="italic">Owner: HPC image (proposed GPU layer)</text>
+<rect x="647.2" y="383" width="250.8" height="19" rx="9" fill="#ffffff" fill-opacity="0.92" stroke="#d0d7de"/>
+<text x="891" y="397" font-size="12" font-weight="normal" fill="#57606a" text-anchor="end" font-style="italic">Owner: HPC image (proposed GPU layer)</text>
+<rect x="711.2" y="565" width="186.8" height="19" rx="9" fill="#ffffff" fill-opacity="0.92" stroke="#d0d7de"/>
+<text x="891" y="579" font-size="12" font-weight="normal" fill="#57606a" text-anchor="end" font-style="italic">Owner: Azure Host / Compute</text>
+<rect x="628.0" y="697" width="270.0" height="19" rx="9" fill="#ffffff" fill-opacity="0.92" stroke="#d0d7de"/>
+<text x="891" y="711" font-size="12" font-weight="normal" fill="#57606a" text-anchor="end" font-style="italic">Owner: Fleet / HW platform (CRD rollout)</text>
+<rect x="679.2" y="891" width="218.8" height="19" rx="9" fill="#ffffff" fill-opacity="0.92" stroke="#d0d7de"/>
+<text x="891" y="905" font-size="12" font-weight="normal" fill="#57606a" text-anchor="end" font-style="italic">NVIDIA · AMD · NVIDIA Networking</text>
+<rect x="34" y="531" width="656" height="16" fill="#ffffff"/>
+<text x="40" y="542" font-size="12.5" font-weight="bold" fill="#cf222e" text-anchor="start" >FLEET / PLATFORM: image cannot choose; a VM lands on whatever CRD the host runs</text>
+<circle cx="325.0" cy="413" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="325.0" y="417.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >B</text>
+<circle cx="343.0" cy="413" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="343.0" y="417.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >F</text>
+<circle cx="361.0" cy="413" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="361.0" y="417.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >G</text>
+<circle cx="191.0" cy="413" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="191.0" y="417.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >F</text>
+<circle cx="871.0" cy="413" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="871.0" y="417.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >F</text>
+<circle cx="361.0" cy="277" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="361.0" y="281.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >G</text>
+<circle cx="531.0" cy="277" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="531.0" y="281.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >B</text>
+<circle cx="701.0" cy="277" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="701.0" y="281.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >B</text>
+<circle cx="531.0" cy="141" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="531.0" y="145.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >H</text>
+<circle cx="701.0" cy="141" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="701.0" y="145.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >H</text>
+<circle cx="191.0" cy="277" r="8.5" fill="#bf8700" stroke="#fff" stroke-width="1.5"/>
+<text x="191.0" y="281.2" font-size="10.5" font-weight="bold" fill="#fff" text-anchor="middle" >H</text>
+<rect x="945" y="84" width="650" height="914" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="965" y="114" font-size="17" font-weight="bold" fill="#1f2328" text-anchor="start" >Compatibility points</text>
+<circle cx="973" cy="136" r="8" fill="#cf222e"/>
+<text x="989" y="141" font-size="12.5" font-weight="normal" fill="#1f2328" text-anchor="start" >Crosses the image ↔ fleet boundary: image team controls only one side</text>
+<circle cx="973" cy="160" r="8" fill="#bf8700"/>
+<text x="989" y="165" font-size="12.5" font-weight="normal" fill="#1f2328" text-anchor="start" >Inside the image: fully controlled by version pinning at build time</text>
+<circle cx="975" cy="198" r="12" fill="#cf222e"/>
+<text x="975" y="202.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >A</text>
+<text x="997" y="203" font-size="14" font-weight="bold" fill="#1f2328" text-anchor="start" >Guest GPU driver ↔ GPU firmware (CRD)</text>
+<text x="997" y="223" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >Passthrough: the guest driver talks to the GPU directly. Each CRD</text>
+<text x="997" y="240" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >lists a recommended / max validated driver; newer drivers are usually</text>
+<text x="997" y="257" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >backward compatible but not guaranteed on every older CRD. New GPUs</text>
+<text x="997" y="274" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >need a minimum driver branch.</text>
+<text x="997" y="291" font-size="12" font-weight="normal" fill="#57606a" text-anchor="start" font-style="italic">Symptom: Driver fails to load, Xid errors, GPU missing / off the bus</text>
+<circle cx="975" cy="313" r="12" fill="#cf222e"/>
+<text x="975" y="317.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >C</text>
+<text x="997" y="318" font-size="14" font-weight="bold" fill="#1f2328" text-anchor="start" >IMEX / NVLink ↔ rack NVLink firmware (GB)</text>
+<text x="997" y="338" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >Cross-node NVLink depends on the switch-tray firmware in the rack</text>
+<text x="997" y="355" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >CRD plus the IMEX / driver version in the guest.</text>
+<text x="997" y="372" font-size="12" font-weight="normal" fill="#57606a" text-anchor="start" font-style="italic">Symptom: Compute domain fails to form; NVLink down</text>
+<circle cx="975" cy="394" r="12" fill="#cf222e"/>
+<text x="975" y="398.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >D</text>
+<text x="997" y="399" font-size="14" font-weight="bold" fill="#1f2328" text-anchor="start" >Guest GRID driver ↔ host vGPU manager</text>
+<text x="997" y="419" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >Guest GRID branch must be supported by the host vGPU manager.</text>
+<text x="997" y="436" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >The one host/guest issue AKS has seen (A10).</text>
+<text x="997" y="453" font-size="12" font-weight="normal" fill="#57606a" text-anchor="start" font-style="italic">Symptom: No vGPU, licensing errors, nvidia-smi fails</text>
+<circle cx="975" cy="475" r="12" fill="#cf222e"/>
+<text x="975" y="479.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >E</text>
+<text x="997" y="480" font-size="14" font-weight="bold" fill="#1f2328" text-anchor="start" >DOCA-OFED / mlx5 ↔ ConnectX firmware</text>
+<text x="997" y="500" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >Driver and NIC firmware must be in NVIDIA Networking&#x27;s supported</text>
+<text x="997" y="517" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >matrix; the NIC firmware ships with the CRD.</text>
+<text x="997" y="534" font-size="12" font-weight="normal" fill="#57606a" text-anchor="start" font-style="italic">Symptom: IB link flaps, RDMA errors, NCCL bandwidth drops</text>
+<circle cx="975" cy="556" r="12" fill="#bf8700"/>
+<text x="975" y="560.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >B</text>
+<text x="997" y="561" font-size="14" font-weight="bold" fill="#1f2328" text-anchor="start" >Fabric manager / IMEX ↔ driver</text>
+<text x="997" y="581" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >Exact version match with the driver (e.g. 580.159.04 = 580.159.04).</text>
+<text x="997" y="598" font-size="12" font-weight="normal" fill="#57606a" text-anchor="start" font-style="italic">Symptom: FM fails to start, CUDA init fails, no NVLink</text>
+<circle cx="975" cy="620" r="12" fill="#bf8700"/>
+<text x="975" y="624.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >F</text>
+<text x="997" y="625" font-size="14" font-weight="bold" fill="#1f2328" text-anchor="start" >Kernel modules ↔ guest kernel</text>
+<text x="997" y="645" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >nvidia.ko, amdgpu and OFED modules must be built for the running</text>
+<text x="997" y="662" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >kernel (DKMS at build, or prebaked per kernel).</text>
+<text x="997" y="679" font-size="12" font-weight="normal" fill="#57606a" text-anchor="start" font-style="italic">Symptom: Module missing after a kernel update</text>
+<circle cx="975" cy="701" r="12" fill="#bf8700"/>
+<text x="975" y="705.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >G</text>
+<text x="997" y="706" font-size="14" font-weight="bold" fill="#1f2328" text-anchor="start" >CUDA / NCCL user space ↔ driver</text>
+<text x="997" y="726" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >Driver&#x27;s CUDA version must be ≥ CUDA runtime in the image / containers.</text>
+<text x="997" y="743" font-size="12" font-weight="normal" fill="#57606a" text-anchor="start" font-style="italic">Symptom: cudaErrorInsufficientDriver in workloads</text>
+<circle cx="975" cy="765" r="12" fill="#bf8700"/>
+<text x="975" y="769.5" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" >H</text>
+<text x="997" y="770" font-size="14" font-weight="bold" fill="#1f2328" text-anchor="start" >AKS components ↔ GPU layer</text>
+<text x="997" y="790" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >Device plugin / DRA, dcgm-exporter and container toolkit must match</text>
+<text x="997" y="807" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >the driver, DCGM and containerd versions. AKS stays source of truth.</text>
+<text x="997" y="824" font-size="12" font-weight="normal" fill="#57606a" text-anchor="start" font-style="italic">Symptom: GPUs not advertised to kubelet, metrics missing</text>
+<line x1="965" y1="836" x2="1575" y2="836" stroke="#d0d7de"/>
+<text x="965" y="858" font-size="14" font-weight="bold" fill="#1f2328" text-anchor="start" >Takeaway</text>
+<text x="965" y="880" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >• The image fixes everything above the hypervisor; the fleet fixes everything below.</text>
+<text x="965" y="898" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >• A, C, D and E are the only places host firmware and the image meet. Mitigation: pin</text>
+<text x="965" y="916" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >  drivers to versions validated across the CRDs live in the fleet for each SKU.</text>
+<text x="965" y="934" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >• B, F, G and H are solved at build time by version pinning + build validation.</text>
+<text x="965" y="952" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >• AMD (MI300X) follows the same pattern: amdgpu (DKMS) + ROCm in the image,</text>
+<text x="965" y="970" font-size="12.2" font-weight="normal" fill="#1f2328" text-anchor="start" >  amdgpu ↔ GPU firmware (PSP / IFWI) in the CRD.</text>
+</svg>

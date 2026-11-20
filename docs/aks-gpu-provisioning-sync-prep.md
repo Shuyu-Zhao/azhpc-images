@@ -124,3 +124,16 @@ current prebake.
 - Image size and keeping it lean. `install_aks.sh` is already minimal.
 - Two pipelines meaning two owners during an incident.
 - Kernel and driver lockstep when there are multiple driver lines.
+
+## 7. Architecture Layers and Compatibility Points
+
+Follow-up to AKS's request for GPU architecture documentation. Editable source:
+[azure-gpu-layers.svg](images/azure-gpu-layers.svg).
+
+![Azure GPU VM stack: layers and where compatibility matters](images/azure-gpu-layers.png)
+
+- **Red (A, C, D, E):** cross the image ↔ fleet boundary. The image controls only one side; the
+  host CRD (hardware + firmware bundle) is chosen by the fleet.
+- **Amber (B, F, G, H):** inside the image, handled by version pinning and build validation.
+- CRD contents and hypervisor details (DDA passthrough, vGPU, IB SR-IOV) are still to be reviewed
+  with Jiaqi before sharing.
